@@ -31,6 +31,9 @@
 				<li class="item"><a href="<?php echo base_url(); ?>backend/article/item" title="Bài viết">Bài viết</a></li>
 			</ul>
 		</li>
+		<li class="main">
+			<a class="main" href="<?php echo base_url(); ?>" title="Trang chủ">View Page</a>
+		</li>
 	</ul>
 	<ul class="user-account">
 		<li>Chào <strong><?php echo !empty($data['auth']['fullname'])?$data['auth']['fullname']:$data['auth']['username']; ?></strong></li>

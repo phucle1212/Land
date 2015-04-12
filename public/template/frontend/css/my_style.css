@@ -6,6 +6,8 @@
 	background: #DF3832;
 	padding: 7px;
 	color: #fff;
+	border: 2px solid grey;
+	border-radius: 10px;
 }
 .container .header ul.pull-right li.publish a:hover{
 	background: #CF352F;
