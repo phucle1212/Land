@@ -1,0 +1,771 @@
+/* unvisited link */
+a:link {
+    color: #000;
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    /*color: #025A8D;*/
+    text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+    color: #025A8D;
+    /*text-decoration: underline;*/
+    border: 1px solid #D1D1D1;
+	padding: 1px;
+}
+
+/* selected link */
+a:active {
+    color: #025A8D;
+    text-decoration: none;
+}
+
+input:disabled {
+    background: #EBEBE4 !important;
+}
+
+body {
+	font-family: Tahoma, Arial;
+	font-size: 12px;
+	padding: 5px;
+	color: #000;
+}
+
+/*===================== HEADER =====================*/
+header.hhv-header {
+	height: 49px;
+	background-color: black;
+	border-bottom: 5px solid #0A72A6;
+}
+
+header.hhv-header p.main-title {
+	float: left;
+	color: #FFF;
+	font-size: 17px;
+	padding: 10px 0px 0px 10px;
+	margin: 0px;
+}
+
+header.hhv-header ul {
+	margin: 15px 10px 0px 5px;
+	padding: 0px;
+	list-style: none;
+	float: right;
+}
+
+header.hhv-header ul.lang li {
+	display: inline;
+	margin: 0px 0px 0px 5px;
+}
+
+header.hhv-header ul.lang li a {
+	color: #fff;
+}
+
+nav.navigation {
+	border: 1px solid #D1D1D1;
+	border-top: none;
+	height: 30px;
+	margin: 0px 0px 5px 0px;
+}
+
+nav.navigation ul.main {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	float: left;
+}
+
+nav.navigation ul.main li.main {
+	float: left;
+	position: relative;
+}
+
+nav.navigation ul.main li.main a.main {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	border-right : 1px solid #D1D1D1;
+	font-weight: bold;
+}
+
+nav.navigation ul.main li.main-active a.main,
+nav.navigation ul.main li.main:hover a.main {
+	background: #0A72A6 !important;
+	color: #FFF !important;
+}
+
+
+nav.navigation ul.main li.main:hover ul.item {
+	display: block;
+}
+nav.navigation ul.item {
+	display: none;
+	position: absolute;
+	left: -1px;
+	top: 30px;
+	z-index: 999;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	background: #FFF;
+	border: 1px solid #066DA1;
+	width: 220px;
+	z-index: 999;
+}
+
+nav.navigation ul.item:before {
+	content: '';
+	display: inline-block;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-bottom: 7px solid #ccc;
+	border-bottom-color: #066DA1;
+	position: absolute;
+	top: -7px;
+	left: 9px;
+}
+
+nav.navigation ul.item:after {
+	content: '';
+	display: inline-block;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 6px solid #ffffff;
+	position: absolute;
+	top: -6px;
+	left: 10px;
+}
+
+nav.navigation ul.item li.item {
+	line-height: 30px;
+	position: relative;
+}
+
+nav.navigation ul.item li.item a{
+	margin-left: 10px;	
+}
+
+nav.navigation ul.item li.item a.item {
+	line-height: 30px;
+	margin: 0px;
+	padding: 0px 10px;
+	color: #000;
+}
+
+nav.navigation ul.item li.item-active a.item,
+nav.navigation ul.item li.item:hover a.item {
+	text-decoration: underline;
+}
+
+nav.navigation ul.main li.item:hover ul.sub {
+	display: block;
+}
+
+nav.navigation ul.sub {
+	display: none;
+	position: absolute;
+	left: 220px;
+	top: -1px;
+	z-index: 999;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	background: #FFF;
+	border: 1px solid #066DA1;
+	width: 220px;
+}
+
+nav.navigation ul.sub:before, nav.navigation ul.sub:after{
+	right: 100%;
+	top: 15px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none; 
+}
+nav.navigation ul.sub:before {
+	border-right-color: #066DA1;
+	border-width: 7px;
+	margin-top: -7px;
+}
+
+nav.navigation ul.sub:after {
+	border-right-color: #fff;
+	border-width: 6px;
+	margin-top: -6px;
+}
+
+section.user-account{
+	float: right;
+}
+
+ul.user-account{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	float: right;
+}
+
+ul.user-account li {
+	line-height: 30px;
+	float: left;
+	margin: 0px 0px 0px 8px;
+}
+
+ul.user-account li strong {
+	text-transform: capitalize;
+	border-right: 1px solid #D1D1D1;
+	padding-right: 10px;
+}
+
+ul.user-account li a {
+	float: left;
+	line-height: 30px;
+	margin: 0px;
+	padding: 0px 10px;
+	color: #000;
+}
+/*===================== HHV-TABS =====================*/
+section.hhv-tabs {
+	border:1px solid #D1D1D1;
+	height: 30px;
+	margin: 0px 0px 5px 0px;
+}
+
+section.hhv-tabs h1 {
+	float: left;
+	font-size: 13px;
+	margin: 0px 0px 0px 10px;
+	padding: 0px;
+	line-height: 30px;
+}
+
+section.hhv-tabs ul {
+	float: right;
+	margin: 0px 10px 0px 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+section.hhv-tabs ul li {
+	display: inline; /*hiển thị không ngắt dòng*/
+	margin: 0px 0px 0px 10px;
+}
+
+section.hhv-tabs ul li a {
+	line-height: 30px;
+	color: #000;
+	font-weight: bold;
+}
+
+section.hhv-tabs ul li.hover a,
+section.hhv-tabs ul li.active a {
+	color: #025A8D;
+	font-weight: bold;
+	border: 1px solid #D1D1D1;
+	padding: 2px;
+	/*text-decoration: none;*/
+}
+
+/*===================== HHV-VIEW =====================*/
+section.hhv-view {
+	border:1px solid #D1D1D1;
+	min-height: 368px;
+	margin: 0px 0px 5px 0px;
+	overflow: hidden;
+	background: #F4F4F4;	
+}
+
+section.hhv-view .advanced {
+	overflow: hidden;
+	margin: 0px 0px 5px 0px;
+}
+
+section.hhv-view .advanced .search {
+	float: left;
+	margin: 10px 0px 0px 10px;
+}
+
+section.hhv-view .advanced .search form{
+}
+
+section.hhv-view .advanced .search form select{
+	padding: 3px 5px;
+}
+section.hhv-view .advanced .search form .text {
+	padding: 3px 5px;
+}
+
+section.hhv-view .advanced .search form .submit {
+	padding: 3px 5px;
+}
+
+section.hhv-view .advanced .tool {
+	float: right;	
+	margin: 10px 10px 0px 0px;
+}
+
+section.hhv-view .advanced .tool form input{
+	padding: 2px 5px;
+}
+
+section.hhv-view .table{
+	border: 1px solid #CCCCCC;
+	background: #FFF;
+	margin: 0px 10px 10px 10px;
+}
+
+section.hhv-view .table table.main{
+	width: 100%; /*kéo các cột dàn đều hết ra*/
+	border-collapse: collapse;
+}
+
+section.hhv-view .table table.main th{
+	height: 30px;
+	line-height: 30px;
+	background: #E7E7E7;
+	border-bottom: 1px solid #999999;
+	border-right: 1px solid #FFF;
+	font-size: 11px;
+	min-width: 30px;
+}
+
+section.hhv-view .table table.main th:hover{
+
+}
+
+section.hhv-view .table table.main th.last {
+	border-right: none;
+}
+
+section.hhv-view .table table.main th a:hover {
+	border: none;
+	color: #D84833;
+}
+
+section.hhv-view .table table.main th a img{
+	vertical-align: middle;
+	margin: 0px 0px 0px 5px; 
+}
+
+section.hhv-view .table table.main td{
+	border-right: 1px solid #EFEFEF;
+	font-size: 11px;
+	font-weight: normal;
+	text-align: center;
+	padding: 7px 5px;
+	vertical-align: middle;
+}
+
+section.hhv-view .table table.main td.last {
+	border-right: none;
+}
+
+section.hhv-view .table table.main tr:hover td{
+	background: #CCFFCC !important;
+	/*!important ưu tiên sử dụng trước*/
+}
+
+section.hhv-view .table table.main tr td.select{
+	background: #FFCC99 !important;
+}
+
+section.hhv-view .table table.main td input.order {
+	border: 1px solid #CCC;
+	padding: 2px 5px;
+	width: 30px;
+	text-align: center;
+	background: #FFF;
+}
+
+section.hhv-view .table table.main td a{
+	color: #025A8D;
+}
+
+section.hhv-view .table table.main td a:hover{
+	border: none;
+}
+
+section.hhv-view .table table.main td a img{
+	vertical-align: middle;
+	margin: 0px 5px;
+	height: 15px;
+}
+
+section.hhv-view .table table.main tr:nth-child(even) td{
+	/*tr:nth-child(odd): set màu sắc cho dòng odd hay even*/
+	background: #F3F1F1;
+}
+
+section.hhv-view .table table.main td.left{
+	text-align: left;
+}
+
+section.hhv-view .table table.main td.right{
+	text-align: right;
+}
+
+section.hhv-view .pagination {
+	overflow: hidden;
+	margin: 0px 10px 10px 10px;
+}
+
+section.hhv-view .pagination ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none; /*bỏ dấu gạch trước danh sách*/
+	float: right;
+}
+
+section.hhv-view .pagination ul li{
+	float: left;
+	margin: 0px 0px 0px 5px;
+}
+
+section.hhv-view .pagination ul li.active,
+section.hhv-view .pagination ul li a{
+	float: left;
+	border: 1px solid #CCCCCC;
+	padding: 3px 5px;
+	color: #025A8D;
+	min-width: 15px;
+	text-align: center;
+	background: #FFF;
+}
+
+section.hhv-view .pagination ul li.active,
+section.hhv-view .pagination ul li.active a,
+section.hhv-view .pagination ul li:hover a{
+	border: 1px solid #000;
+	color: #000;
+	background: #E7E7E7;
+	text-decoration: none; 	
+}
+
+/*===================== HHV-FORM =====================*/
+section.hhv-form {
+	border:1px solid #D1D1D1;
+	margin: 0px 0px 5px 0px;
+	overflow: hidden;
+	background: #F4F4F4;	
+	position: relative;
+}
+
+section.hhv-form .main-panel{
+	border:1px solid #CCC;
+	margin: 10px 288px 10px 10px;
+	-webkit-box-sizing: border-box; /* Safari 3.0 - 5.0, Chrome 1 - 9, Android 2.1 - 3.x */
+  	-moz-box-sizing: border-box;    /* Firefox 1 - 28 */
+  	box-sizing: border-box;         /* Safari 5.1+, Chrome 10+, Firefox 29+, Opera 7+, IE 8+, Android 4.0+, iOS any */
+  	background: #FFF;
+}
+
+section.hhv-form .main-panel-single{
+	margin: 10px 10px 10px 10px !important;
+}
+
+section.hhv-form .main-panel header{
+	color: #025A8D;
+	font-weight: bold;
+	line-height: 30px;
+	margin: 0px;
+	height: 30px;
+	border-bottom: 1px solid #CCC;
+	padding: 0px 0px 0px 10px;
+}	
+
+section.hhv-form .main-panel ul.error {
+	margin: 0px 10px 0px 10px;
+	padding: 10px 0px 0px 0px;
+	list-style: none;
+}
+
+section.hhv-form .main-panel ul.error li {
+	margin: 5px 0px 5px 0px;
+	color: red;
+}
+
+section.hhv-form .main-panel .block {
+	padding: 20px 0px 0px 10px;
+}
+
+section.hhv-form .main-panel .block label.item {
+	display: block;
+	margin: 0px 0px 10px 0px;
+}
+
+section.hhv-form .main-panel .block label.item p.label {
+	float: left;
+	width: 168px;
+	margin: 0px;
+	padding: 0px;
+	font-weight: bold;
+}
+
+section.hhv-form .main-panel .block label.item .txtText {
+	background: #FFFFFF;
+	border: 1px solid #CCC;
+	font-size: 11px;
+	padding: 5px 5px;
+	margin: 0px;
+	color: #333;
+	width: 450px;
+}
+
+section.hhv-form .main-panel .block label.item .btnButton {
+	padding: 3px 5px;
+	margin: 0px 0px 0px 4px;
+}
+
+section.hhv-form .main-panel .block label.item .txtTextarea {
+	background: #FFFFFF;
+	border: 1px solid #CCC;
+	font-size: 11px;
+	padding: 5px 5px;
+	margin: 0px;
+	color: #333;
+	width: 700px;
+	height: 168px;
+}
+
+section.hhv-form .main-panel .block label.item .cbSelect {
+	background: #FFFFFF;
+	border: 1px solid #CCC;
+	font-size: 11px;
+	padding: 4px 5px;
+	margin: 0px;
+	color: #333;
+	width: 462px;
+}
+
+section.hhv-form .main-panel .block .checkbox-radio {
+	display: block;
+	margin: 0px 0px 10px 0px;
+	overflow: hidden;
+}
+
+
+section.hhv-form .main-panel .block .checkbox-radio p.label {
+	float: left;
+	width: 168px;
+	margin: 0px;
+	padding: 0px;
+	font-weight: bold;
+}
+
+section.hhv-form .main-panel .block .checkbox-radio .group {
+	overflow: hidden;
+}
+
+section.hhv-form .main-panel .block .checkbox-radio .group label {
+	margin: 0px 5px 10px 0px;
+	width: 168px;
+	float: left;
+}
+
+section.hhv-form .main-panel .block .checkbox-radio .group label input{
+	margin: 0px 10px 0px 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+section.hhv-form .main-panel .block .checkbox-radio .group label span{
+}
+
+section.hhv-form .main-panel .block .action {
+	display: block;
+	margin: 0px 0px 10px 0px;
+	overflow: hidden;
+	padding: 15px 0px 10px 0px;
+}
+
+section.hhv-form .main-panel .block .action p.label {
+	float: left;
+	width: 168px;
+	margin: 0px;
+	padding: 0px;
+	font-weight: bold;
+}
+
+section.hhv-form .main-panel .block .action input {
+	padding: 5px 32px;
+	margin: 0px 10px 0px 0px;
+}
+
+section.hhv-form .side-panel {
+	min-height: 168px;
+	width: 268px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+section.hhv-form .side-panel .block {
+	border:1px solid #CCC;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 10px 0px;
+	-webkit-box-sizing: border-box; 
+  	-moz-box-sizing: border-box;
+  	box-sizing: border-box;    
+  	background: #FFF;
+}
+
+section.hhv-form .side-panel .block header{
+	color: #025A8D;
+	font-weight: bold;
+	line-height: 30px;
+	margin: 0px;
+	height: 30px;
+	border-bottom: 1px solid #CCC;
+	padding: 0px 0px 0px 10px;
+}
+
+section.hhv-form .side-panel .block .container{
+	margin: 0px;
+	padding: 10px 10px 0px 10px;
+}
+section.hhv-form .side-panel .block label.item {
+	display: block;
+	margin: 0px 0px 10px 0px;
+}
+
+section.hhv-form .side-panel .block label.item p.label {
+	width: 168px;
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+	font-weight: bold;
+}
+
+section.hhv-form .side-panel .block label.item .txtText {
+	background: #FFFFFF;
+	border: 1px solid #CCC;
+	font-size: 11px;
+	padding: 5px 5px;
+	margin: 0px;
+	color: #333;
+	width: 228px;
+}
+
+section.hhv-form .side-panel .block label.item .txtTextarea {
+	background: #FFFFFF;
+	border: 1px solid #CCC;
+	font-size: 11px;
+	padding: 5px 5px;
+	margin: 0px;
+	color: #333;
+	width: 228px;
+	height: 68px;
+	max-width: 228px;
+}
+
+section.hhv-form .side-panel .block label.item .cbSelect {
+	background: #FFFFFF;
+	border: 1px solid #CCC;
+	font-size: 11px;
+	padding: 4px 5px;
+	margin: 0px;
+	color: #333;
+	width: 240px;
+}
+
+section.hhv-form .side-panel .block .checkbox-radio {
+	display: block;
+	margin: 0px 0px 10px 0px;
+	overflow: hidden;
+}
+
+
+section.hhv-form .side-panel .block .checkbox-radio p.label {
+	float: left;
+	width: 100px;
+	margin: 0px;
+	padding: 0px;
+	font-weight: bold;
+}
+
+section.hhv-form .side-panel .block .checkbox-radio .group {
+	overflow: hidden;
+}
+
+section.hhv-form .side-panel .block .checkbox-radio .group label {
+	margin: 0px 5px 10px 0px;
+	width: 68px;
+	float: left;
+}
+
+section.hhv-form .side-panel .block .checkbox-radio .group label input{
+	margin: 0px 10px 0px 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+section.hhv-form .side-panel .block .checkbox-radio .group label span{
+}
+
+section.hhv-form .side-panel {
+	min-height: 168px;
+	width: 268px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	-webkit-box-sizing: border-box; 
+  	-moz-box-sizing: border-box;
+  	box-sizing: border-box;    
+}
+
+section.hhv-form .side-panel .block .action {
+	display: block;
+	margin: 0px 0px 10px 0px;
+	overflow: hidden;
+}
+
+
+section.hhv-form .side-panel .block .action p.label {
+	float: left;
+	width: 168px;
+	margin: 0px;
+	padding: 0px;
+	font-weight: bold;
+}
+
+section.hhv-form .side-panel .block .action input {
+	padding: 5px 32px;
+	margin: 0px 10px 0px 0px;
+}
+
+/*===================== FOOTER =====================*/
+footer {
+	margin: 0px auto;
+	padding-right: 10px;
+}
+
+footer p {
+	float: right;
+}
+
+.display-none{
+	display: none;
+}
+
+#txtContent{
+	height: 368px;
+}
+
+/*======= Tinymce editor ====*/
+table.mceLayout, textarea.tinyMCE{
+	width: 800px !important;
+}
+
+/*@media full and (max-width: 800px) {
+    table.mceLayout, textarea.richEditor {
+       width: 100px !important;
+    }
+}*/

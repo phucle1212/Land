@@ -1,0 +1,12 @@
+.container .header ul.pull-right li.publish{
+
+}
+.container .header ul.pull-right li.publish a{
+	display: inline;
+	background: #DF3832;
+	padding: 7px;
+	color: #fff;
+}
+.container .header ul.pull-right li.publish a:hover{
+	background: #CF352F;
+}

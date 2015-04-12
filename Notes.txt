@@ -1,0 +1,3 @@
+﻿Thông tin tài khoản của bạn: 
+Username: admin
+Password: 7M14E
