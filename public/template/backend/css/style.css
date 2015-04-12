@@ -64,6 +64,7 @@ header.hhv-header ul.lang li {
 
 header.hhv-header ul.lang li a {
 	color: #fff;
+	text-transform: uppercase;
 }
 
 nav.navigation {

@@ -10,7 +10,7 @@ class Adv extends MY_Controller
         $this->my_layout->setLayout("layout/backend");
         $this->auth = $this->my_auth->check();
         if($this->auth == NULL) 
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend');
+			$this->my_string->php_redirect(base_url().'backend');
 
 		/***
 		* Permission to access
@@ -43,19 +43,20 @@ class Adv extends MY_Controller
 			}
 		}
 
+		$_lang = $this->session->userdata('_lang');
 		$keyword = $this->input->get('keyword');
 		$sort = $this->my_common->sort_orderby($this->input->get('sort_field'), $this->input->get('sort_value'));
 		$config = $this->my_common->backend_pagination();
-		$config['base_url'] = HHV_BASE_URL.'backend/adv/index';
+		$config['base_url'] = base_url().'backend/adv/index';
 
 		/***
 		* Load pagination when search
 		***/
 		if(!empty($keyword)){
-			$config['total_rows'] = $this->db->from('adv')->like('title', $keyword)->count_all_results();
+			$config['total_rows'] = $this->db->from('adv')->like('title', $keyword)->where(array('lang' => $_lang))->count_all_results();
 		}
 		else{
-			$config['total_rows'] = $this->db->from('adv')->count_all_results();
+			$config['total_rows'] = $this->db->from('adv')->where(array('lang' => $_lang))->count_all_results();
 		}
 
 		// Trang này ko có data. Load trang trước của nó
@@ -66,23 +67,24 @@ class Adv extends MY_Controller
 		$config['suffix'] = (isset($sort) && count($sort))?'?sort_field='.$sort['field'].'&sort_value='.$sort['value']:'';
 		$config['suffix'] = $config['suffix'].(!empty($keyword)?'&keyword='.$keyword:'');
 		$config['first_url'] = $config['base_url'].$config['suffix'];
-		$this->pagination->initialize($config); 
+		if ($config['total_rows'] > 0) {
+			$this->pagination->initialize($config); 
 
-		/***
-		* Create pagination
-		***/
-		$data['data']['pagination'] = $this->pagination->create_links();
+			/***
+			* Create pagination
+			***/
+			$data['data']['pagination'] = $this->pagination->create_links();
 
-		/***
-		* Load data when search - follow 'title'
-		***/
-		if(!empty($keyword)){
-			$data['data']['_list'] = $this->db->from('adv')->like('title', $keyword)->limit($config['per_page'], ($page-1) * $config['per_page'])->order_by($sort['field'].' '.$sort['value'])->get()->result_array();
+			/***
+			* Load data when search - follow 'title'
+			***/
+			if(!empty($keyword)){
+				$data['data']['_list'] = $this->db->from('adv')->like('title', $keyword)->where(array('lang' => $_lang))->limit($config['per_page'], ($page-1) * $config['per_page'])->order_by($sort['field'].' '.$sort['value'])->get()->result_array();
+			}
+			else{
+				$data['data']['_list'] = $this->db->from('adv')->where(array('lang' => $_lang))->limit($config['per_page'], ($page-1) * $config['per_page'])->order_by($sort['field'].' '.$sort['value'])->get()->result_array();
+			}
 		}
-		else{
-			$data['data']['_list'] = $this->db->from('adv')->limit($config['per_page'], ($page-1) * $config['per_page'])->order_by($sort['field'].' '.$sort['value'])->get()->result_array();
-		}
-
 		$data['data']['_config'] = $config;
 		$data['data']['_page'] = $page;
 		$data['data']['_sort'] = $sort;
@@ -115,8 +117,9 @@ class Adv extends MY_Controller
 				$_post['time_end'] = gmdate('Y-m-d H:i:s', strtotime(str_replace('/', '-',$_post['time_end'])) + 7*3600 );
 				$_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
 				$_post['userid_created'] = $this->auth['id'];
+				$_post['lang'] = $this->session->userdata('_lang');
 				$this->db->insert('adv', $_post); 
-				$this->my_string->js_redirect('Thêm quảng cáo thành công!', HHV_BASE_URL.'backend/adv/index');
+				$this->my_string->js_redirect('Thêm quảng cáo thành công!', base_url().'backend/adv/index');
 			}
 		}
 		else{
@@ -139,7 +142,9 @@ class Adv extends MY_Controller
 		$continue = $this->input->get('continue');
 		$adv = $this->db->where(array('id' => $id))->from('adv')->get()->row_array();
 		if(!isset($adv) || count($adv) == 0)
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend');
+			$this->my_string->php_redirect(base_url().'backend');
+		if($adv['lang'] != $this->session->userdata('_lang'))
+			$this->my_string->js_redirect('Ngôn ngữ không phù hợp!', !empty($continue)?base64_decode($continue):base_url().'backend/adv/index');
 
 		if($this->input->post('edit')){
 			$_post = $this->input->post('data');
@@ -158,7 +163,7 @@ class Adv extends MY_Controller
 				$_post['updated'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
 				$_post['userid_updated'] = $this->auth['id'];
 				$this->db->where(array('id' => $id))->update('adv', $_post);
-				$this->my_string->js_redirect('Sửa quảng cáo thành công!', !empty($continue)?base64_decode($continue):HHV_BASE_URL.'backend/adv/index');
+				$this->my_string->js_redirect('Sửa quảng cáo thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/adv/index');
 			}
 		}
 		else{
@@ -182,9 +187,11 @@ class Adv extends MY_Controller
 		$continue = $this->input->get('continue');
 		$adv = $this->db->where(array('id' => $id))->from('adv')->get()->row_array();
 		if(!isset($adv) || count($adv) == 0)
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend');
+			$this->my_string->php_redirect(base_url().'backend');
+		if($adv['lang'] != $this->session->userdata('_lang'))
+			$this->my_string->js_redirect('Ngôn ngữ không phù hợp!', !empty($continue)?base64_decode($continue):base_url().'backend/adv/index');
 		$this->db->delete('adv', array('id' => $id)); 
-		$this->my_string->js_redirect('Xóa quảng cáo thành công!', !empty($continue)?base64_decode($continue):HHV_BASE_URL.'backend/adv/index');
+		$this->my_string->js_redirect('Xóa quảng cáo thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/adv/index');
 	}
 
 	/***
@@ -209,10 +216,10 @@ class Adv extends MY_Controller
 		$continue = $this->input->get('continue');
 		$adv = $this->db->where(array('id' => $id))->from('adv')->get()->row_array();
 		if(!isset($adv) || count($adv) == 0)
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend/adv/index');
+			$this->my_string->php_redirect(base_url().'backend/adv/index');
 		if(!isset($adv[$field]))
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend/adv/index');
+			$this->my_string->php_redirect(base_url().'backend/adv/index');
 		$this->db->where(array('id' => $id))->update('adv', array($field => (($adv[$field] == 1)?0:1)));
-		$this->my_string->js_redirect('Thay đổi trạng thái thành công!', !empty($continue)?base64_decode($continue):HHV_BASE_URL.'backend/adv/index');
+		$this->my_string->js_redirect('Thay đổi trạng thái thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/adv/index');
 	}
 }

@@ -5,5 +5,9 @@ class MY_Controller extends CI_Controller {
     {
         parent::__construct();
         date_default_timezone_set('Asia/Saigon');
+        $_lang = $this->session->userdata('_lang');
+        if (!isset($_lang) || empty($_lang)) {
+        	$this->session->set_userdata('_lang', 'vi');
+        }
     }
 }

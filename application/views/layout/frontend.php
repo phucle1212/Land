@@ -43,8 +43,8 @@
             <div class="navbar-collapse  collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active"><a href="<?php echo base_url(); ?>">Trang chủ</a></li>
-                    <li><a href="about.php">Giới thiệu</a></li>
-                    <li><a href="agents.php">Quản trị viên</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Quản trị viên</a></li>
                     <li><a href="<?php echo base_url(); ?>frontend/contact/index">Liên hệ</a></li>
                 </ul>
             </div>

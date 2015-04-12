@@ -15,12 +15,23 @@
 
 </head>
 <body>
-
 <header class="hhv-header"><p class="main-title">Hệ thống quản trị website</p>
 	<ul class="lang">
-		<li><a href="<?php echo base_url(); ?>backend/home/lang/jp" title="Tiếng Nhật" >JP</a></li>
-		<li><a href="<?php echo base_url(); ?>backend/home/lang/en" title="Tiếng Anh">EN</a></li>
-		<li><a href="<?php echo base_url(); ?>backend/home/lang/vn" title="Tiếng Việt">[VN]</a></li>
+	<?php
+		$_lang = $this->session->userdata('_lang');
+		$lang = array(
+			'jp' => 'Tiếng Nhật',
+			'en' => 'Tiếng Anh',
+			'vi' => 'Tiếng Việt',
+		);
+		foreach ($lang as $key => $val) {
+			if ($_lang == $key) {
+				echo '<li><a href="'.base_url().'backend/home/lang/'.$key.'?continue='.base64_encode(common_fullurl()).'" title="'.$val.'" >['.$key.']</a></li>';
+			}
+			else
+				echo '<li><a href="'.base_url().'backend/home/lang/'.$key.'?continue='.base64_encode(common_fullurl()).'" title="'.$val.'" >'.$key.'</a></li>';
+		}
+	?>
 	</ul>>
 </header>
 <?php $this->load->view('backend/common/nav');?>

@@ -10,12 +10,12 @@ class Article extends MY_Controller
         $this->my_layout->setLayout("layout/backend"); 
         $this->auth = $this->my_auth->check();
         if($this->auth == NULL) 
-            $this->my_string->php_redirect(HHV_BASE_URL.'backend');
+            $this->my_string->php_redirect(base_url().'backend');
 
         /***
         * Permission to access
         ***/
-        $this->my_auth->allow($this->auth, 'backend/adv');
+        $this->my_auth->allow($this->auth, 'backend/category');
     }
 
     /**********************************************
@@ -68,8 +68,9 @@ class Article extends MY_Controller
                 $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'description', 'publish', 'meta_title', 'meta_keywords', 'meta_description'));
                 $_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_created'] = $this->auth['id'];
+                $_post['lang'] = $this->session->userdata('_lang');
                 $this->db->insert('article_category', $_post); 
-                $this->my_string->js_redirect('Thêm danh mục thành công!', HHV_BASE_URL.'backend/article/category');
+                $this->my_string->js_redirect('Thêm danh mục thành công!', base_url().'backend/article/category');
             }
         }
         else{
@@ -92,10 +93,12 @@ class Article extends MY_Controller
         $id = (int)$id;
         $category = $this->db->where(array('id' => $id))->from('article_category')->get()->row_array();
         if(!isset($category) || count($category) == 0)
-            $this->my_string->php_redirect(HHV_BASE_URL.'backend/article/category');
+            $this->my_string->php_redirect(base_url().'backend/article/category');
         if ($category['level'] == 0) {
-            $this->my_string->js_redirect('Không thể sửa Root!', HHV_BASE_URL.'backend/article/category');
+            $this->my_string->js_redirect('Không thể sửa Root!', base_url().'backend/article/category');
         }
+        if($category['lang'] != $this->session->userdata('_lang'))
+            $this->my_string->js_redirect('Ngôn ngữ không phù hợp!', base_url().'backend/article/category');
 
         if($this->input->post('edit')){
             $_post = $this->input->post('data');
@@ -109,7 +112,7 @@ class Article extends MY_Controller
                 $_post['updated'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_updated'] = $this->auth['id'];
                 $this->db->where(array('id' => $id))->update('article_category', $_post);
-                $this->my_string->js_redirect('Sửa danh mục thành công!', HHV_BASE_URL.'backend/article/category');
+                $this->my_string->js_redirect('Sửa danh mục thành công!', base_url().'backend/article/category');
             }
         }
         else{
@@ -140,23 +143,25 @@ class Article extends MY_Controller
         $id = (int)$id;
         $category = $this->db->where(array('id' => $id))->from('article_category')->get()->row_array();
         if(!isset($category) || count($category) == 0)
-            $this->my_string->php_redirect(HHV_BASE_URL.'backend');
+            $this->my_string->php_redirect(base_url().'backend');
         if ($category['level'] == 0){
-            $this->my_string->js_redirect('Không thể xóa Root!', HHV_BASE_URL.'backend/article/category');
+            $this->my_string->js_redirect('Không thể xóa Root!', base_url().'backend/article/category');
         }
+        if($category['lang'] != $this->session->userdata('_lang'))
+            $this->my_string->js_redirect('Ngôn ngữ không phù hợp!', base_url().'backend/article/category');
         $count = $this->my_nestedset->children('article_category', array(
                 'lft >' => $category['lft'],
                 'rgt <' => $category['rgt']
             ));
         if ($count > 0) {
-            $this->my_string->js_redirect('Vẫn còn chuyên mục con!', HHV_BASE_URL.'backend/article/category');
+            $this->my_string->js_redirect('Vẫn còn chuyên mục con!', base_url().'backend/article/category');
         }
         $count = $this->db->from('article_item')->where(array('parentid' => $id))->count_all_results();
         if ($count > 0) {
-            $this->my_string->js_redirect('Vẫn còn bài viết!', HHV_BASE_URL.'backend/article/category');
+            $this->my_string->js_redirect('Vẫn còn bài viết!', base_url().'backend/article/category');
         }
         $this->db->delete('article_category', array('id' => $id)); 
-        $this->my_string->js_redirect('Xóa danh mục thành công!', HHV_BASE_URL.'backend/article/category');
+        $this->my_string->js_redirect('Xóa danh mục thành công!', base_url().'backend/article/category');
     }
 
     /*
@@ -168,11 +173,11 @@ class Article extends MY_Controller
         $id = (int)$id;
         $category = $this->db->where(array('id' => $id))->from('article_category')->get()->row_array();
         if(!isset($category) || count($category) == 0)
-            $this->my_string->php_redirect(HHV_BASE_URL.'backend/article/category');
+            $this->my_string->php_redirect(base_url().'backend/article/category');
         if(!isset($category[$field]))
-            $this->my_string->php_redirect(HHV_BASE_URL.'backend/article/category');
+            $this->my_string->php_redirect(base_url().'backend/article/category');
         $this->db->where(array('id' => $id))->update('article_category', array($field => (($category[$field] == 1)?0:1)));
-        $this->my_string->js_redirect('Thay đổi trạng thái thành công!', HHV_BASE_URL.'backend/article/category');
+        $this->my_string->js_redirect('Thay đổi trạng thái thành công!', base_url().'backend/article/category');
     }
 
     /**********************************************
@@ -220,28 +225,32 @@ class Article extends MY_Controller
             else
                 $this->my_string->js_reload('Chọn nhiều hơn 2 đối tượng để xóa!');
         }
+        $_lang = $this->session->userdata('_lang');
         $keyword = $this->input->get('keyword');
         $parentid = (int)$this->input->get('parentid');
         $sort = $this->my_common->sort_orderby($this->input->get('sort_field'), $this->input->get('sort_value'));
         $config = $this->my_common->backend_pagination();
-        $config['base_url'] = HHV_BASE_URL.'backend/article/item';
+        $config['base_url'] = base_url().'backend/article/item';
 
         /***
         * Load pagination when search
         ***/
         if(!empty($keyword) && $parentid == 0){
-            $config['total_rows'] = $this->db->from('article_item')->like('title', $keyword)->or_like('description', $keyword)->or_like('content', $keyword)->count_all_results();
+            $_sql = 'SELECT * FROM '.HHV_DB_PREFIX.'article_item WHERE `lang` = ? AND (`title` LIKE ? OR `description` LIKE ? OR `content` LIKE ?)';
+            $_param = array($_lang, '%'.$keyword.'%', '%'.$keyword.'%', '%'.$keyword.'%');
+            $config['total_rows'] = $this->db->query($_sql, $_param)->num_rows();
         }
+
         else if(empty($keyword) && $parentid > 0){
-            $config['total_rows'] = $this->db->from('article_item')->where(array('parentid' => $parentid))->count_all_results();
+            $config['total_rows'] = $this->db->from('article_item')->where(array('lang' => $_lang))->where(array('parentid' => $parentid))->count_all_results();
         }
         else if(!empty($keyword) && $parentid > 0){
-            $_sql = 'SELECT * FROM '.HHV_DB_PREFIX.'article_item WHERE `parentid` = ? AND (`title` LIKE ? OR `description` LIKE ? OR `content` LIKE ?)';
-            $_param = array($parentid, '%'.$keyword.'%', '%'.$keyword.'%', '%'.$keyword.'%');
+            $_sql = 'SELECT * FROM '.HHV_DB_PREFIX.'article_item WHERE `lang` = ? AND `parentid` = ? AND (`title` LIKE ? OR `description` LIKE ? OR `content` LIKE ?)';
+            $_param = array($_lang, $parentid, '%'.$keyword.'%', '%'.$keyword.'%', '%'.$keyword.'%');
             $config['total_rows'] = $this->db->query($_sql, $_param)->num_rows();
         }
         else{
-            $config['total_rows'] = $this->db->from('article_item')->count_all_results();
+            $config['total_rows'] = $this->db->from('article_item')->where(array('lang' => $_lang))->count_all_results();
         }
 
         // Trang này ko có data. Load trang trước của nó
@@ -267,18 +276,20 @@ class Article extends MY_Controller
             $data['data']['pagination'] = $this->pagination->create_links();
 
             if(!empty($keyword) && $parentid == 0){
-                $data['data']['_list'] = $this->db->from('article_item')->like('title', $keyword)->or_like('description', $keyword)->or_like('content', $keyword)->limit($config['per_page'], ($page-1) * $config['per_page'])->order_by($sort['field'].' '.$sort['value'])->get()->result_array();
+                $_sql = 'SELECT * FROM '.HHV_DB_PREFIX.'article_item WHERE `lang` = ? AND (`title` LIKE ? OR `description` LIKE ? OR `content` LIKE ?)';
+                $_param = array($_lang, '%'.$keyword.'%', '%'.$keyword.'%', '%'.$keyword.'%');
+                $data['data']['_list'] = $this->db->query($_sql, $_param)->result_array();
             }
             else if(empty($keyword) && $parentid > 0){
-                $data['data']['_list'] = $this->db->from('article_item')->where(array('parentid' => $parentid))->limit($config['per_page'], ($page-1) * $config['per_page'])->order_by($sort['field'].' '.$sort['value'])->get()->result_array();
+                $data['data']['_list'] = $this->db->from('article_item')->where(array('lang' => $_lang))->where(array('parentid' => $parentid))->limit($config['per_page'], ($page-1) * $config['per_page'])->order_by($sort['field'].' '.$sort['value'])->get()->result_array();
             }
             else if(!empty($keyword) && $parentid > 0){
-                $_sql = 'SELECT * FROM `'.HHV_DB_PREFIX.'article_item` WHERE `parentid` = ? AND (`title` LIKE ? OR `description` LIKE ? OR `content` LIKE ?) ORDER BY `'.$sort['field'].'` '.$sort['value'].' LIMIT '.(($page-1) * $config['per_page']).', '.$config['per_page'];
-                $_param = array($parentid, '%'.$keyword.'%', '%'.$keyword.'%', '%'.$keyword.'%');
+                $_sql = 'SELECT * FROM `'.HHV_DB_PREFIX.'article_item` WHERE `lang` = ? AND `parentid` = ? AND (`title` LIKE ? OR `description` LIKE ? OR `content` LIKE ?) ORDER BY `'.$sort['field'].'` '.$sort['value'].' LIMIT '.(($page-1) * $config['per_page']).', '.$config['per_page'];
+                $_param = array($_lang, $parentid, '%'.$keyword.'%', '%'.$keyword.'%', '%'.$keyword.'%');
                 $data['data']['_list'] = $this->db->query($_sql, $_param)->result_array();
             }
             else{
-                $data['data']['_list'] = $this->db->from('article_item')->limit($config['per_page'], ($page-1) * $config['per_page'])->order_by($sort['field'].' '.$sort['value'])->get()->result_array();
+                $data['data']['_list'] = $this->db->from('article_item')->where(array('lang' => $_lang))->limit($config['per_page'], ($page-1) * $config['per_page'])->order_by($sort['field'].' '.$sort['value'])->get()->result_array();
             }
         }
         
@@ -311,8 +322,9 @@ class Article extends MY_Controller
                 $_post['timer'] = gmdate('Y-m-d H:i:s', strtotime(str_replace('/', '-',$_post['timer'])) + 7*3600 );
                 $_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_created'] = $this->auth['id'];
+                $_post['lang'] = $this->session->userdata('_lang');
                 $this->db->insert('article_item', $_post); 
-                $this->my_string->js_redirect('Thêm bài viết thành công!', HHV_BASE_URL.'backend/article/item');
+                $this->my_string->js_redirect('Thêm bài viết thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
             }
         }
         else{
@@ -336,7 +348,9 @@ class Article extends MY_Controller
         $continue = $this->input->get('continue');
         $item = $this->db->where(array('id' => $id))->from('article_item')->get()->row_array();
         if(!isset($item) || count($item) == 0)
-            $this->my_string->php_redirect(HHV_BASE_URL.'backend');
+            $this->my_string->php_redirect(base_url().'backend');
+        if($item['lang'] != $this->session->userdata('_lang'))
+            $this->my_string->js_redirect('Ngôn ngữ không phù hợp!', base_url().'backend/article/item');
 
         if($this->input->post('edit')){
             $_post = $this->input->post('data');
@@ -350,7 +364,7 @@ class Article extends MY_Controller
                 $_post['updated'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_updated'] = $this->auth['id'];
                 $this->db->where(array('id' => $id))->update('article_item', $_post);
-                $this->my_string->js_redirect('Sửa bài viết thành công!', !empty($continue)?base64_decode($continue):HHV_BASE_URL.'backend/article/item');
+                $this->my_string->js_redirect('Sửa bài viết thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
             }
         }
         else{
@@ -373,10 +387,13 @@ class Article extends MY_Controller
         $continue = $this->input->get('continue');
         $item = $this->db->where(array('id' => $id))->from('article_item')->get()->row_array();
         if(!isset($item) || count($item) == 0){
-            $this->my_string->php_redirect(HHV_BASE_URL.'backend/article/item');
+            $this->my_string->php_redirect(base_url().'backend/article/item');
         }
+        if($item['lang'] != $this->session->userdata('_lang'))
+            $this->my_string->js_redirect('Ngôn ngữ không phù hợp!', base_url().'backend/article/item');
+
         $this->db->delete('article_item', array('id' => $id)); 
-        $this->my_string->js_redirect('Xóa bài viết thành công!', !empty($continue)?base64_decode($continue):HHV_BASE_URL.'backend/article/item');
+        $this->my_string->js_redirect('Xóa bài viết thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
     }
 
     /*
@@ -389,10 +406,10 @@ class Article extends MY_Controller
         $continue = $this->input->get('continue');
         $item = $this->db->where(array('id' => $id))->from('article_item')->get()->row_array();
         if(!isset($item) || count($item) == 0)
-            $this->my_string->php_redirect(HHV_BASE_URL.'backend/article/item');
+            $this->my_string->php_redirect(!empty($continue)?base64_decode($continue):base_url().'backend/article/item');
         if(!isset($item[$field]))
-            $this->my_string->php_redirect(HHV_BASE_URL.'backend/article/item');
+            $this->my_string->php_redirect(!empty($continue)?base64_decode($continue):base_url().'backend/article/item');
         $this->db->where(array('id' => $id))->update('article_item', array($field => (($item[$field] == 1)?0:1)));
-        $this->my_string->js_redirect('Thay đổi trạng thái thành công!', !empty($continue)?base64_decode($continue):HHV_BASE_URL.'backend/article/item');
+        $this->my_string->js_redirect('Thay đổi trạng thái thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
     }
 }

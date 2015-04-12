@@ -25,19 +25,19 @@
 						<?php if($valConfig['type'] == 'text'){ ?>
 							<label class="item">
 								<p class="label"><?php echo $valConfig['label']; ?></p>
-								<input type="text" name="data[<?php echo $valConfig['keyword']; ?>]" value="<?php echo common_valuepost(isset($data['_post'][$valConfig['keyword']])?$data['_post'][$valConfig['keyword']]:$valConfig['value']); ?>" class="txtText" />
+								<input type="text" name="data[<?php echo $valConfig['keyword']; ?>]" value="<?php echo common_valuepost(isset($data['_post'][$valConfig['keyword']])?$data['_post'][$valConfig['keyword']]:$valConfig['value_'.$data['_lang']]); ?>" class="txtText" />
 							</label>
 						<?php } else if($valConfig['type'] == 'textarea'){ ?>
 							<label class="item">
 								<p class="label"><?php echo $valConfig['label']; ?></p>
-								<textarea name="data[<?php echo $valConfig['keyword']; ?>]" class="txtTextarea"><?php echo common_valuepost(isset($data['_post'][$valConfig['keyword']])?$data['_post'][$valConfig['keyword']]:$valConfig['value']); ?></textarea>
+								<textarea name="data[<?php echo $valConfig['keyword']; ?>]" class="txtTextarea"><?php echo common_valuepost(isset($data['_post'][$valConfig['keyword']])?$data['_post'][$valConfig['keyword']]:$valConfig['value_'.$data['_lang']]); ?></textarea>
 							</label>
 						<?php } else if($valConfig['type'] == 'radio'){ ?>
 							<section class="checkbox-radio">
 							<p class="label"><?php echo $valConfig['label']; ?></p>
 								<section class="group">
-									<label style="margin-bottom: 0px;"><input type="radio" name="data[<?php echo $valConfig['keyword']; ?>]" value="1" <?php echo (($valConfig['value']==1)?'checked="checked"':'') ?> /><span>Có</span></label>
-									<label style="margin-bottom: 0px;"><input type="radio" name="data[<?php echo $valConfig['keyword']; ?>]" value="0" <?php echo (($valConfig['value']==0)?'checked="checked"':'') ?> /><span>Không</span></label>
+									<label style="margin-bottom: 0px;"><input type="radio" name="data[<?php echo $valConfig['keyword']; ?>]" value="1" <?php echo (($valConfig['value_'.$data['_lang']]==1)?'checked="checked"':'') ?> /><span>Có</span></label>
+									<label style="margin-bottom: 0px;"><input type="radio" name="data[<?php echo $valConfig['keyword']; ?>]" value="0" <?php echo (($valConfig['value_'.$data['_lang']]==0)?'checked="checked"':'') ?> /><span>Không</span></label>
 								</section>
 							</section>
 						<?php } ?>

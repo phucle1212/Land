@@ -13,7 +13,8 @@ class My_nestedset{
 	public function check_empty($table = ''){
 		$count = $this->CI->db->from($table)->count_all_results();
 		if ($count == 0) {
-			$post_data['title'] = '-----';
+			$post_data['title'] = 'Root';
+			$post_data['lang'] = 'all';
 			$post_data['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
 			$post_data['userid_created'] = $this->auth['id'];
 			$this->CI->db->insert($table, $post_data);
@@ -24,11 +25,12 @@ class My_nestedset{
 	// Mảng lựa chọn sử dụng cho danh mục đổ xuống
 	public function dropdown($table = '', $param = NULL, $type = 'category'){
 		$temp = NULL;
+		$_lang = $this->CI->session->userdata('_lang');
 		if ($param == NULL) {
-			$data = $this->CI->db->select('id, title, level')->from($table)->order_by('lft asc')->get()->result_array();
+			$data = $this->CI->db->select('id, title, level')->from($table)->where(array('lang' => $_lang))->or_where(array('lang' => 'all'))->order_by('lft asc')->get()->result_array();
 		}
 		else{
-			$data = $this->CI->db->select('id, title, level')->from($table)->where($param)->order_by('lft asc')->get()->result_array();
+			$data = $this->CI->db->select('id, title, level')->from($table)->where(array('lang' => $_lang))->or_where(array('lang' => 'all'))->where($param)->order_by('lft asc')->get()->result_array();
 		}
 		if (isset($data) && count($data)) {
 			if ($type == 'category') {
@@ -52,18 +54,20 @@ class My_nestedset{
 
 	// Mảng dữ liệu để hiển thị danh sách
 	public function data($table = '', $param = NULL){
+		$_lang = $this->CI->session->userdata('_lang');
 		if ($param == NULL) {
-			$data = $this->CI->db->from($table)->order_by('lft asc')->get()->result_array();
+			$data = $this->CI->db->from($table)->where(array('lang' => $_lang))->or_where(array('lang' => 'all'))->order_by('lft asc')->get()->result_array();
 		}
 		else{
-			$data = $this->CI->db->from($table)->where($param)->order_by('lft asc')->get()->result_array();
+			$data = $this->CI->db->from($table)->where(array('lang' => $_lang))->or_where(array('lang' => 'all'))->where($param)->order_by('lft asc')->get()->result_array();
 		}
 		return $data;
 	}
 
 	// Mảng dữ liệu
 	public function arr($table = ''){
-		return $this->CI->db->select('id, title, parentid, level, order')->from($table)->order_by('order asc, id asc')->get()->result_array();
+		$_lang = $this->CI->session->userdata('_lang');
+		return $this->CI->db->select('id, title, parentid, level, order')->from($table)->where(array('lang' => $_lang))->or_where(array('lang' => 'all'))->order_by('order asc, id asc')->get()->result_array();
 	}
 
 	// Chi tiết
@@ -162,13 +166,14 @@ class My_nestedset{
 	}
 
 	public function check_parentid($table = '', $parentid = 0, $catid = 0){
+		$_lang = $this->session->userdata('_lang');
 		if ($parentid == $catid) {
 			$this->CI->form_validation->set_message('_parentid', 'Không thể chọn chính nó làm danh mục cha.');
 			return FALSE;
 		}
-		$data = $this->CI->db->select('lft, rgt')->from($table)->where(array('id' => $catid))->get()->row_array();
+		$data = $this->CI->db->select('lft, rgt')->from($table)->where(array('lang' => $_lang))->where(array('id' => $catid))->get()->row_array();
 		if (isset($data) && count($data)) {
-			$children = $this->CI->db->select('id')->from($table)->where(array('lft >' => $data['lft'], 'lft <' => $data['rgt']))->get()->row_array();
+			$children = $this->CI->db->select('id')->from($table)->where(array('lang' => $_lang))->where(array('lft >' => $data['lft'], 'lft <' => $data['rgt']))->get()->row_array();
 			if (isset($children) && count($children)) {
 				foreach ($children as $key => $val) {
 					if ($parentid == $val) {
@@ -187,8 +192,9 @@ class My_nestedset{
 
 	// Danh sách node con
 	public function children($table = '', $param = NULL){
+		$_lang = $this->session->userdata('_lang');
 		$temp = NULL;
-		$children = $this->CI->db->select('id')->from($table)->where($param)->get()->result_array();
+		$children = $this->CI->db->select('id')->from($table)->where(array('lang' => $_lang))->where($param)->get()->result_array();
 		if (isset($children) && count($children)) {
 			foreach ($children as $key => $val) {
 				$temp[] = $val['id'];

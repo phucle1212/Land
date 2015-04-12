@@ -50,18 +50,7 @@
 							'sort_value' => $data['_sort']['value']
 						)); ?>
 					</th>
-					<th><?php echo get_link_sort(
-						array(
-							'base_url' => $data['_config']['base_url'],
-							'page' => $data['_page'],
-							'title' => 'Ngày sửa',
-							'field' => 'updated',
-							'sort_field' => $data['_sort']['field'], 
-							'sort_value' => $data['_sort']['value']
-						)); ?>
-					</th>
 					<th>Người tạo</th>
-					<th>Người sửa</th>
 					<th><?php echo get_link_sort(
 						array(
 							'base_url' => $data['_config']['base_url'],
@@ -105,9 +94,7 @@
 					<td class="left"><?php echo $valList['title']?></td>
 
 					<td><?php echo ($valList['created'] != '0000-00-00 00:00:00')?gmdate('H:i d/m/Y', strtotime($valList['created']) + 7*3600):'-'; ?></td>
-					<td><?php echo ($valList['updated'] != '0000-00-00 00:00:00')?gmdate('H:i d/m/Y', strtotime($valList['updated']) + 7*3600):'-'; ?></td>
 					<td><?php $user = get_user($valList['userid_created'], 'username'); echo isset($user['username'])?$user['username']:'-' ?></td>
-					<td><?php $user = get_user($valList['userid_updated'], 'username'); echo isset($user['username'])?$user['username']:'-' ?></td>
 					<td><a href="#"><input type="input" name="order[<?php echo $valList['id']; ?>]" value="<?php echo $valList['order']; ?>" class="order" /></a></td>
 
 					<td><a href="<?php echo base_url(); ?>backend/adv/set/publish/<?php echo $valList['id']; ?>?continue=<?php echo base64_encode(common_fullurl()); ?>" title="Trạng thái"><img src="<?php echo base_url(); ?>public/template/backend/images/<?php echo ($valList['publish'] == 1)?'check':'uncheck'; ?>.png" title="Trạng thái" /></a></td>
