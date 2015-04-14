@@ -318,7 +318,7 @@ class Article extends MY_Controller
             $this->form_validation->set_rules('data[title]', 'Tiêu đề', 'trim|required');
             $this->form_validation->set_rules('data[parentid]', 'Node cha', 'trim|required|is_natural_no_zero');
             if ($this->form_validation->run() == TRUE){
-                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'meta_title', 'meta_keywords', 'meta_description'));
+                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'tags', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'meta_title', 'meta_keywords', 'meta_description'));
                 $_post['timer'] = gmdate('Y-m-d H:i:s', strtotime(str_replace('/', '-',$_post['timer'])) + 7*3600 );
                 $_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_created'] = $this->auth['id'];
@@ -360,7 +360,7 @@ class Article extends MY_Controller
             $this->form_validation->set_rules('data[title]', 'Tiêu đề', 'trim|required');
             $this->form_validation->set_rules('data[parentid]', 'Node cha', 'trim|required|is_natural_no_zero');
             if ($this->form_validation->run() == TRUE){
-                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'meta_title', 'meta_keywords', 'meta_description'));
+                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'tags', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'meta_title', 'meta_keywords', 'meta_description'));
                 $_post['updated'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_updated'] = $this->auth['id'];
                 $this->db->where(array('id' => $id))->update('article_item', $_post);

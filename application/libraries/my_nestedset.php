@@ -192,7 +192,7 @@ class My_nestedset{
 
 	// Danh sách node con
 	public function children($table = '', $param = NULL){
-		$_lang = $this->session->userdata('_lang');
+		$_lang = $this->CI->session->userdata('_lang');
 		$temp = NULL;
 		$children = $this->CI->db->select('id')->from($table)->where(array('lang' => $_lang))->where($param)->get()->result_array();
 		if (isset($children) && count($children)) {

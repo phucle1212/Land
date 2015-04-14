@@ -23,9 +23,15 @@
 			</label>
 
 			<label class="item">
+				<p class="label">Chủ đề:</p>
+				<input type="text" name="data[tag]" value="<?php echo common_valuepost(isset($data['_post']['tags'])?$data['_post']['tags']:''); ?>" class="txtText" id="txtTags" />
+				<input type="button" value="Chọn" class="btnButton" >
+			</label>
+
+			<label class="item">
 				<p class="label">Ảnh đại diện:</p>
 				<input type="text" name="data[image]" value="<?php echo common_valuepost(isset($data['_post']['image'])?$data['_post']['image']:''); ?>" class="txtText" id="txtImage" />
-				<input type="button" value="Chọn ảnh" class="btnButton" onclick="browserKCFinder('txtImage', 'image'); return FALSE;">
+				<input type="button" value="Chọn" class="btnButton" onclick="browserKCFinder('txtImage', 'image'); return FALSE;">
 			</label>
 
 			<label class="item">
