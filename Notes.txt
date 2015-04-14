@@ -4,4 +4,3 @@ Password: 123456
 
 .db name:
 project_landtrader
-asdf
