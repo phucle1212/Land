@@ -43,43 +43,8 @@
 <footer><p>Copyright &copy; <?php echo gmdate('Y', time() + 7*3600); ?> Power by <a href="#">hhv</a></p></footer>
 
 <script src="<?php echo base_url(); ?>public/template/backend/plugins/datetimepicker/jquery.datetimepicker.js"></script>
-<script type="text/javascript">
-	$('#txtTimestart, #txtTimeend, #txtTimer').datetimepicker({
-		format:'H:i:s d/m/Y',
-	});
-	$(window).load(function(){
-		var _this = '';
-		var _temp = '';
+<script src="<?php echo base_url(); ?>public/template/backend/js/function.js"></script>
 
-		// Check id 
-		$('#check-all').click(function(){
-			if ($(this).prop('checked')) {
-				$('.check-all').prop('checked', true).parent().parent().find('td').addClass('select');
-			}
-			else{
-				$('.check-all').prop('checked', false).parent().parent().find('td').removeClass('select');
-			}
-		});
-		// Check class
-		$('.check-all').click(function(){
-			if ($(this).prop('checked') == false) {
-				$(this).parent().parent().find('td').removeClass('select');
-				$('#check-all').prop('checked', false);
-			}
-			else{
-				$(this).parent().parent().find('td').addClass('select');
-			}
-			if ($('.check-all:checked').length == $('.check-all').length) {
-				$('#check-all').prop('checked', true);
-			}
-		});
-	});
-	function deleteAll(){
-		if (confirm('Bạn có chắc chắn xóa?')) {
-			document.getElementById('btnDel').click(); return false;
-		};
-	}
-</script>
 <?php $this->load->view('backend/common/tinymce');?>
 </body>
 </html>

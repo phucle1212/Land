@@ -14,7 +14,7 @@ class Home extends MY_Controller {
 	public function index()
 	{
 		if($this->auth == NULL) 
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend/auth/login');
+			$this->my_string->php_redirect(base_url().'backend/auth/login');
 
 		$data['data']['auth'] = $this->auth;
 		$this->my_layout->view("backend/home/index", isset($data)?$data:NULL);

@@ -19,8 +19,9 @@
 			<a class="main" href="#">Module</a> 
 			<ul class="item">
 				<li class="item"><a href="<?php echo base_url(); ?>backend/adv/index" title="Quảng cáo">Quảng cáo</a></li>
+				<li class="item"><a href="<?php echo base_url(); ?>backend/tag/index" title="Từ khóa">Từ khóa</a></li>
+				
 				<li class="item"><a href="#">Hỗ trợ trực tuyến</a></li>
-				<li class="item"><a href="#">Từ khóa</a></li>
 				<li class="item"><a href="#">Phản hồi</a></li>
 			</ul>
 		</li>

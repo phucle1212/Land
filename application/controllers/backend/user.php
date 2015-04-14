@@ -10,7 +10,7 @@ class User extends MY_Controller {
         $this->my_layout->setLayout("layout/backend");
         $this->auth = $this->my_auth->check();
         if($this->auth == NULL) 
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend');
+			$this->my_string->php_redirect(base_url().'backend');
 
 		/***
 		* Permission to access of members group
@@ -45,7 +45,7 @@ class User extends MY_Controller {
 		$keyword = $this->input->get('keyword');
 		$sort = $this->my_common->sort_orderby($this->input->get('sort_field'), $this->input->get('sort_value'));
 		$config = $this->my_common->backend_pagination();
-		$config['base_url'] = HHV_BASE_URL.'backend/user/group';
+		$config['base_url'] = base_url().'backend/user/group';
 
 		/***
 		* Load pagination when search - follow 'title'
@@ -106,7 +106,7 @@ class User extends MY_Controller {
 				$_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
 				$_post['userid_created'] = $this->auth['id'];
 				$this->db->insert('user_group', $_post); 
-				$this->my_string->js_redirect('Thêm nhóm thành viên thành công!', HHV_BASE_URL.'backend/user/group');
+				$this->my_string->js_redirect('Thêm nhóm thành viên thành công!', base_url().'backend/user/group');
 			}
 		}
 		else{
@@ -126,7 +126,7 @@ class User extends MY_Controller {
 		$id = (int)$id;
 		$group = $this->db->where(array('id' => $id))->from('user_group')->get()->row_array();
 		if(!isset($group) || count($group) == 0)
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend');
+			$this->my_string->php_redirect(base_url().'backend');
 
 		$data['seo']['title'] = "Sửa đổi nhóm thành viên";
 		$data['data']['auth'] = $this->auth;
@@ -142,7 +142,7 @@ class User extends MY_Controller {
 				$_post['updated'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
 				$_post['userid_updated'] = $this->auth['id'];
 				$this->db->where(array('id' => $id))->update('user_group', $_post);
-				$this->my_string->js_redirect('Sửa nhóm thành viên thành công!', HHV_BASE_URL.'backend/user/group');
+				$this->my_string->js_redirect('Sửa nhóm thành viên thành công!', base_url().'backend/user/group');
 			}
 		}
 		else{
@@ -161,13 +161,13 @@ class User extends MY_Controller {
 		$id = (int)$id;
 		$group = $this->db->where(array('id' => $id))->from('user_group')->get()->row_array();
 		if(!isset($group) || count($group) == 0)
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend');
+			$this->my_string->php_redirect(base_url().'backend');
 
 		$count = $this->db->where(array('groupid' => $group['id']))->from('user')->count_all_results();
 		if ($count > 0) {
-			$this->my_string->js_redirect('Nhóm "'.$group['title'].'" vẫn còn thành viên!', HHV_BASE_URL.'backend/user/group');
+			$this->my_string->js_redirect('Nhóm "'.$group['title'].'" vẫn còn thành viên!', base_url().'backend/user/group');
 		}
 		$this->db->delete('user_group', array('id' => $id)); 
-		$this->my_string->js_redirect('Xóa nhóm thành viên thành công!', HHV_BASE_URL.'backend/user/group');
+		$this->my_string->js_redirect('Xóa nhóm thành viên thành công!', base_url().'backend/user/group');
 	}
 }
