@@ -24,8 +24,9 @@
 
 			<label class="item">
 				<p class="label">Chủ đề:</p>
-				<input type="text" name="data[tag]" value="<?php echo common_valuepost(isset($data['_post']['tags'])?$data['_post']['tags']:''); ?>" class="txtText" id="txtTags" />
-				<input type="button" value="Chọn" class="btnButton" >
+				<input type="text" name="data[tags]" value="<?php echo common_valuepost(isset($data['_post']['tags'])?$data['_post']['tags']:''); ?>" class="txtText" id="txtTags" />
+				<input type="button" value="Chọn" class="btnButton" id="tags-suggest">
+				<div id="tagspicker-suggest"></div>
 			</label>
 
 			<label class="item">

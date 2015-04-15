@@ -322,8 +322,10 @@ class Article extends MY_Controller
                 $_post['timer'] = gmdate('Y-m-d H:i:s', strtotime(str_replace('/', '-',$_post['timer'])) + 7*3600 );
                 $_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_created'] = $this->auth['id'];
+                $_post['tags'] = !empty($_post['tags'])?(','.str_replace(', ', ',', $_post['tags']).','):'';
                 $_post['lang'] = $this->session->userdata('_lang');
                 $this->db->insert('article_item', $_post); 
+                $this->my_tags->insert_list($_post['tags']);
                 $this->my_string->js_redirect('Thêm bài viết thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
             }
         }
@@ -363,11 +365,14 @@ class Article extends MY_Controller
                 $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'tags', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'meta_title', 'meta_keywords', 'meta_description'));
                 $_post['updated'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_updated'] = $this->auth['id'];
+                $_post['tags'] = !empty($_post['tags'])?(','.str_replace(', ', ',', $_post['tags']).','):'';
                 $this->db->where(array('id' => $id))->update('article_item', $_post);
+                $this->my_tags->insert_list($_post['tags']);
                 $this->my_string->js_redirect('Sửa bài viết thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
             }
         }
         else{
+            $item['tags'] = !empty($item['tags'])?(str_replace(',', ', ', substr(substr($item['tags'], 1), 0, -1))):'';
             $data['data']['_post'] = $item; 
         }
         $data['data']['_show']['parentid'] = $this->my_nestedset->dropdown('article_category', NULL, 'item');

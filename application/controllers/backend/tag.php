@@ -191,4 +191,17 @@ class Tag extends MY_Controller
 		$this->db->where(array('id' => $id))->update('tag', array($field => (($tag[$field] == 1)?0:1)));
 		$this->my_string->js_redirect('Thay đổi trạng thái thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/tag/index');
 	}
+
+	/*
+    ******** Suggest & Insert tag 
+    **********************************************/
+	public function suggest($char = ''){
+		$this->my_tags->suggest($char);
+	}
+
+	public function insert(){
+		$item = $this->input->post('item');
+		$list = $this->input->post('list');
+		$this->my_tags->insert($item, $list);
+	}
 }
