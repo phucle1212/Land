@@ -3,7 +3,7 @@
 <?php foreach ($data['namecategory'] as $key => $val) { ?>
 <div class="inside-banner">
   <div class="container"> 
-    <span class="pull-right"><a href="#">Tin tức</a> / <?php echo $val['title']; ?></span>
+    <span class="pull-right"><a href="<?php echo base_url(); ?>frontend/article/index">Tin tức</a> / <?php echo $val['title']; ?></span>
     <h2>Tin tức</h2>
 </div>
 </div>
@@ -11,7 +11,7 @@
 <?php } else { ?>
         <div class="inside-banner">
           <div class="container"> 
-            <span class="pull-right"><a href="#">Tin tức</a></span>
+            <span class="pull-right"><a href="<?php echo base_url(); ?>frontend/article/index">Tin tức</a></span>
             <h2>Tin tức</h2>
         </div>
         </div>
@@ -85,62 +85,26 @@
   <!-- tabs -->
   <div class="tabbable" style="margin: 0px 0px 0px 70px;">
               <ul class="nav nav-tabs">
-                <li class=""><a href="#tab1" data-toggle="tab">Xem nhiều</a></li>
+                <li class="active"><a href="#tab1" data-toggle="tab">Xem nhiều</a></li>
                 <li class=""><a href="#tab2" data-toggle="tab">Mới nhất</a></li>
-                <li class="active"><a href="#tab3" data-toggle="tab">Comment nhiều</a></li>
+                <li class=""><a href="#tab3" data-toggle="tab">Comment nhiều</a></li>
               </ul>
+              <?php if(isset($data['topview']) && count($data['topview'])){ ?>
+              <?php foreach ($data['topview'] as $key => $val) { ?>
               <div class="tab-content">
-                <div class="tab-pane" id="tab1">
-                  <ul class="list-unstyled">
-                  <li>
-                  <h5><a href="blogdetail.php">Real estate marketing growing</a></h5>
-                            <div class="info">Posted on: Jan 20, 2013</div>  
-                            </li>
-                             <li>
-                  <h5><a href="blogdetail.php">Real estate marketing growing</a></h5>
-                            <div class="info">Posted on: Jan 20, 2013</div>  
-                            </li>
-                             <li>
-                  <h5><a href="blogdetail.php">Real estate marketing growing</a></h5>
-                            <div class="info">Posted on: Jan 20, 2013</div>  
-                            </li>
-                            </ul>
-                </div>
-                <div class="tab-pane" id="tab2">
-                <ul  class="list-unstyled">
-                  <li>
-                  <h5><a href="blogdetail.php">Market update on new apartments</a></h5>
-                            <div class="info">Posted on: Jan 20, 2013</div>  
-                            </li>
-
-                  <li>
-                  <h5><a href="blogdetail.php">Market update on new apartments</a></h5>
-                            <div class="info">Posted on: Jan 20, 2013</div>  
-                            </li>
-
-                  <li>
-                  <h5><a href="blogdetail.php">Market update on new apartments</a></h5>
-                            <div class="info">Posted on: Jan 20, 2013</div>  
-                            </li>
-                            </ul>
-                </div>
                 <div class="tab-pane active" id="tab3">
-                <ul class="list-unstyled">      
-                            <li>
-                  <h5><a href="blogdetail.php">Creative business to takeover the market</a></h5>
-                            <div class="info">Posted on: Jan 20, 2013</div>  
-                            </li>
-                            
-                            <li>
-                  <h5><a href="blogdetail.php">Creative business to takeover the market</a></h5>
-                            <div class="info">Posted on: Jan 20, 2013</div>  
-                            </li>
-                            </ul>
+                  <ul class="list-unstyled">      
+                    <li>
+                      <h5><a href="<?php echo base_url(); ?>frontend/article/viewitem/<?php echo $val['id']; ?>"><?php echo $val['title'];?></a></h5>
+                      <div class="info">Ngày cập nhật: <?php echo $val['created']; ?></div>  
+                    </li>
+                  </ul>
                 </div>
               </div>
-              
-              
-              
+              <?php } ?>
+              <?php } else { ?>
+                <td class="last" colspan="9"><p>Không có dữ liệu</p></td>
+              <?php } ?>
             </div>
   <!-- tabs -->
 

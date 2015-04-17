@@ -57,6 +57,8 @@ class Article extends CI_Controller
         $data['data']['_page'] = $page;
         $data['data']['_keyword'] = $keyword;
 
+        $data['data']['topview'] = $this->db->order_by('viewed desc')->limit(4)->from('article_item')->get()->result_array();
+
         $this->my_layout->view('frontend/article/index', isset($data)?$data:NULL);
     }
 
@@ -65,6 +67,8 @@ class Article extends CI_Controller
         $data['data']['category'] = $this->db->where(array('parentid' => '2'))->from('article_category')->get()->result_array();
         $data['data']['namecategory'] = $this->db->select('title')->where(array('id' => $catid))->from('article_category')->get()->result_array();
         $data['data']['_list'] = $this->db->where(array('parentid' => $catid))->from('article_item')->get()->result_array();
+
+        $data['data']['topview'] = $this->db->order_by('viewed desc')->limit(4)->from('article_item')->get()->result_array();
 
         $this->my_layout->view('frontend/article/viewcategory', isset($data)?$data:NULL);
     }
@@ -79,6 +83,8 @@ class Article extends CI_Controller
         $row = $this->db->where(array('id' => $itemid))->from('article_item')->get()->row_array();
         $row['viewed'] =  $row['viewed'] + 1;
         $this->db->where(array('id' => $itemid))->update('article_item', $row);
+
+        $data['data']['topview'] = $this->db->order_by('viewed desc')->limit(4)->from('article_item')->get()->result_array();
 
         $this->my_layout->view('frontend/article/viewitem', isset($data)?$data:NULL);
     }
