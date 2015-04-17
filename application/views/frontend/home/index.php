@@ -275,7 +275,7 @@
                 <h3>Giới thiệu</h3>
 
                 <p>Website được xây dựng nhằm giới thiệu, mua bán nhà đất online, phục vụ nhu cầu tìm kiếm và kinh doanh các ngôi nhà.<br><a
-                        href="about.php">Đọc tiếp</a></p>
+                        href="<?php echo base_url(); ?>frontend/about/index">Đọc tiếp</a></p>
 
             </div>
             <div class="col-lg-5 col-lg-offset-1 col-sm-3 recommended">

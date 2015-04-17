@@ -29,7 +29,8 @@
 			<a class="main" href="<?php echo base_url(); ?>backend/article/item" title="Bài viết">Bài viết</a>
 			<ul class="item">
 				<li class="item"><a href="<?php echo base_url(); ?>backend/article/category" title="Danh mục">Danh mục</a></li>
-				<li class="item"><a href="<?php echo base_url(); ?>backend/article/item" title="Bài viết">Bài viết</a></li>
+				<li class="item"><a href="<?php echo base_url(); ?>backend/article/item" title="Bài viết">Tin tức</a></li>
+				<li class="item"><a href="<?php echo base_url(); ?>backend/article/itemland" title="Nhà đất">Nhà đất</a></li>
 			</ul>
 		</li>
 		<li class="main">

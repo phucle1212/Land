@@ -1,15 +1,15 @@
 <section class="hhv-tabs">
-	<h1>Tin tức</h1>
+	<h1>Nhà đất</h1>
 	<ul>
-		<li class="active"><a href="<?php echo base_url(); ?>backend/article/item" title="Bài viết">Bài viết</a></li>
-		<li><a href="<?php echo base_url(); ?>backend/article/additem" title="Thêm bài viết">Thêm bài viết</a></li>
+		<li class="active"><a href="<?php echo base_url(); ?>backend/article/itemland" title="Nhà đất">Nhà đất</a></li>
+		<li><a href="<?php echo base_url(); ?>backend/article/additemland" title="Thêm nhà đất">Thêm nhà đất</a></li>
 	</ul>
 </section>
 
 <section class="hhv-view">
 	<section class="advanced">
 		<section class="search">
-			<form method="get" action="<?php echo base_url(); ?>backend/article/item">
+			<form method="get" action="<?php echo base_url(); ?>backend/article/itemland">
 				<input type="hidden" name="sort_field" value="<?php echo $data['_sort']['field']; ?>" />
 				<input type="hidden" name="sort_value" value="">
 				<?php echo form_dropdown('parentid', (isset($data['_show']['parentid'])?$data['_show']['parentid']:NULL),common_valuepost(isset($data['_parentid'])?$data['_parentid']:0),' id="txtParentid" class="cbSelect"'); ?>
@@ -116,11 +116,11 @@
 					
 					<td><a href="#"><input type="input" name="order[<?php echo $valList['id']; ?>]" value="<?php echo $valList['order']; ?>" class="order" /></a></td>
 
-					<td><a href="<?php echo base_url(); ?>backend/article/setitem/publish/<?php echo $valList['id']; ?>?continue=<?php echo base64_encode(common_fullurl()); ?>" title="Trạng thái"><img src="<?php echo base_url(); ?>public/template/backend/images/<?php echo ($valList['publish'] == 1)?'check':'uncheck'; ?>.png" title="Trạng thái" /></a></td>
+					<td><a href="<?php echo base_url(); ?>backend/article/setitemland/publish/<?php echo $valList['id']; ?>?continue=<?php echo base64_encode(common_fullurl()); ?>" title="Trạng thái"><img src="<?php echo base_url(); ?>public/template/backend/images/<?php echo ($valList['publish'] == 1)?'check':'uncheck'; ?>.png" title="Trạng thái" /></a></td>
 
 					<td>
-						<a href="<?php echo base_url(); ?>backend/article/edititem/<?php echo $valList['id']; ?>?continue=<?php echo base64_encode(common_fullurl()); ?>" title="Thay đổi"><img src="<?php echo base_url(); ?>public/template/backend/images/edit.png" /></a>
-						<a href="<?php echo base_url(); ?>backend/article/delitem/<?php echo $valList['id']; ?>" title="Xóa" onclick="return confirm('Bạn có chắc chắn xóa?');"><img src="<?php echo base_url(); ?>public/template/backend/images/delete.png" /></a></td>
+						<a href="<?php echo base_url(); ?>backend/article/edititemland/<?php echo $valList['id']; ?>?continue=<?php echo base64_encode(common_fullurl()); ?>" title="Thay đổi"><img src="<?php echo base_url(); ?>public/template/backend/images/edit.png" /></a>
+						<a href="<?php echo base_url(); ?>backend/article/delitemland/<?php echo $valList['id']; ?>" title="Xóa" onclick="return confirm('Bạn có chắc chắn xóa?');"><img src="<?php echo base_url(); ?>public/template/backend/images/delete.png" /></a></td>
 					<td class="last"><?php echo $valList['id']; ?></td>
 				</tr>
 			<?php } ?>

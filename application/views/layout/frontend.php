@@ -43,8 +43,8 @@
             <div class="navbar-collapse  collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active"><a href="<?php echo base_url(); ?>">Trang chủ</a></li>
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Quản trị viên</a></li>
+                    <li><a href="<?php echo base_url(); ?>frontend/about/index">Giới thiệu</a></li>
+                    <li><a href="<?php echo base_url(); ?>frontend/agent/index">Quản trị viên</a></li>
                     <li><a href="<?php echo base_url(); ?>frontend/contact/index">Liên hệ</a></li>
                 </ul>
             </div>
@@ -81,8 +81,8 @@
             <div class="col-lg-3 col-sm-3">
                 <h4>Thông tin</h4>
                 <ul class="row">
-                    <li class="col-lg-12 col-sm-12 col-xs-3"><a href="about.php">Giới thiệu</a></li>
-                    <li class="col-lg-12 col-sm-12 col-xs-3"><a href="agents.php">Quản trị viên</a></li>
+                    <li class="col-lg-12 col-sm-12 col-xs-3"><a href="<?php echo base_url(); ?>frontend/about/index">Giới thiệu</a></li>
+                    <li class="col-lg-12 col-sm-12 col-xs-3"><a href="<?php echo base_url(); ?>frontend/agent/index">Quản trị viên</a></li>
                     <li class="col-lg-12 col-sm-12 col-xs-3"><a href="contact.php">Liên hệ</a></li>
                 </ul>
             </div>
@@ -100,7 +100,7 @@
 
             <div class="col-lg-3 col-sm-3">
                 <h4>Mạng xã hội</h4>
-                <a href="#"><img src="<?php echo base_url(); ?>public/template/frontend/images/facebook.png" alt="facebook"></a>
+                <a href="http://www.facebook.com"><img src="<?php echo base_url(); ?>public/template/frontend/images/facebook.png" alt="facebook"></a>
                 <a href="#"><img src="<?php echo base_url(); ?>public/template/frontend/images/twitter.png" alt="twitter"></a>
                 <a href="#"><img src="<?php echo base_url(); ?>public/template/frontend/images/linkedin.png" alt="linkedin"></a>
                 <a href="#"><img src="<?php echo base_url(); ?>public/template/frontend/images/instagram.png"

@@ -4,7 +4,7 @@
 .container .header ul.pull-right li.publish a{
 	display: inline;
 	background: #DF3832;
-	padding: 7px;
+	padding: 1px 10px;
 	color: #fff;
 	border: 2px solid grey;
 	border-radius: 10px;

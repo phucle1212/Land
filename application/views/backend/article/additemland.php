@@ -1,8 +1,8 @@
 <section class="hhv-tabs">
-	<h1>Tin tức</h1>
+	<h1>Nhà đất</h1>
 	<ul>
-		<li><a href="<?php echo base_url(); ?>backend/article/item" title="Bài viết">Bài viết</a></li>
-		<li class="active"><a href="<?php echo base_url(); ?>backend/article/additem" title="Thêm bài viết">Thêm bài viết</a></li>
+		<li><a href="<?php echo base_url(); ?>backend/article/itemland" title="Nhà đất">Nhà đất</a></li>
+		<li class="active"><a href="<?php echo base_url(); ?>backend/article/additemland" title="Thêm nhà đất">Thêm nhà đất</a></li>
 	</ul>
 </section>
 
@@ -22,6 +22,14 @@
 				<?php echo form_dropdown('data[parentid]', (isset($data['_show']['parentid'])?$data['_show']['parentid']:NULL),common_valuepost(isset($data['_post']['parentid'])?$data['_post']['parentid']:0),' id="txtParentid" class="cbSelect"'); ?>
 			</label>
 
+			<section class="checkbox-radio">
+				<p class="label">Trạng thái:</p>
+				<section class="group">
+					<label><input type="radio" name="data[publish]" value="1" <?php echo common_valuepost(isset($data['_post']['publish'])?(($data['_post']['publish'] == 1)?'checked="checked"':''):''); ?> /><span>Đang giao dịch</span></label>
+					<label><input type="radio" name="data[publish]" value="0" <?php echo common_valuepost(isset($data['_post']['publish'])?(($data['_post']['publish'] == 0)?'checked="checked"':''):''); ?> /><span>Chưa giao dịch</span></label>
+				</section>
+			</section>
+			
 			<label class="item">
 				<p class="label">Chủ đề:</p>
 				<input type="text" name="data[tags]" value="<?php echo common_valuepost(isset($data['_post']['tags'])?$data['_post']['tags']:''); ?>" class="txtText" id="txtTags" />
@@ -34,16 +42,28 @@
 				<input type="text" name="data[image]" value="<?php echo common_valuepost(isset($data['_post']['image'])?$data['_post']['image']:''); ?>" class="txtText" id="txtImage" />
 				<input type="button" value="Chọn" class="btnButton" onclick="browserKCFinder('txtImage', 'image'); return FALSE;">
 			</label>
+			
+			<label class="item">
+				<p class="label">Địa chỉ:</p>
+				<textarea name="data[address]" value="<?php echo common_valuepost(isset($data['_post']['address'])?$data['_post']['address']:''); ?>" class="txtText" /></textarea>
+			</label>
 
 			<label class="item">
-				<p class="label">Mô tả:</p>
-				<textarea class="txtTextarea mceEditor" name="data[description]"><?php echo common_valuepost(isset($data['_post']['description'])?$data['_post']['description']:''); ?></textarea>
+				<p class="label">Giá:</p>
+				<input type="text" name="data[price]" value="<?php echo common_valuepost(isset($data['_post']['price'])?$data['_post']['price']:''); ?>" class="txtText" />
+			</label>
+
+			<label class="item">
+				<p class="label">Diện tích:</p>
+				<input type="text" name="data[area]" value="<?php echo common_valuepost(isset($data['_post']['area'])?$data['_post']['area']:''); ?>" class="txtText" />
 			</label>
 
 			<label class="item" >
 				<p class="label">Nội dung:</p>
 				<textarea class="txtTextarea mceEditor" id="txtContent" name="data[content]"><?php echo common_valuepost(isset($data['_post']['content'])?$data['_post']['content']:''); ?></textarea>
 			</label>
+			
+			
 
 			<section class="action">
 				<p class="label">Thao tác:</p>
@@ -78,9 +98,13 @@
 			<header>Thời gian</header>
 			<section class="container">
 				<label class="item">
-					<p class="label">Hẹn giờ hiển thị:</p>
-					<input type="text" name="data[timer]" value="<?php echo common_valuepost(isset($data['_post']['timer'])?$data['_post']['timer']:''); ?>" class="txtText" id="txtTimer" />
+					<p class="label">Thời gian bắt đầu:</p>
+					<input type="text" name="data[time_start]" value="<?php echo common_valuepost(isset($data['_post']['time_start'])?$data['_post']['time_start']:''); ?>" class="txtText" id="txtTimestart" />
 				</label>	
+				<label class="item">
+					<p class="label">Thời gian kết thúc:</p>
+					<input type="text" name="data[time_end]" value="<?php echo common_valuepost(isset($data['_post']['time_end'])?$data['_post']['time_end']:''); ?>" class="txtText" id="txtTimeend"/>
+				</label>
 			</section><!-- .container -->
 		</section><!-- .block -->
 		<section class="block">
