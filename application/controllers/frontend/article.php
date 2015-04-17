@@ -10,18 +10,9 @@ class Article extends CI_Controller
         $this->my_layout->setLayout("layout/frontend"); // load file layout chính (views/layout/frontend.php)
     }
 
-    public function index($id = '', $page = 1)
+    public function index($page = 1, $id = '')
     {
         $data['data']['category'] = $this->db->where(array('parentid' => '2'))->from('article_category')->get()->result_array();
-        if(isset($id) && !empty($id)){
-            $data['data']['item'] = $this->db->where(array('id' => $id))->from('article_item')->get()->result_array();
-            $data['data']['namecategory'] = $this->db->select('article_category.title')->where(array('article_item.id' => $id))->from('article_item')->join('article_category', 'article_category.id=article_item.parentid')->get()->result_array();
-        }
-        else{
-            $data['data']['item'] = $this->db->from('article_item')->get()->result_array();
-            $data['data']['namecategory'] = $this->db->select('article_category.title')->where(array('article_item.id' => $id))->from('article_item')->join('article_category', 'article_category.id=article_item.parentid')->get()->result_array();
-        }
-
 
         $keyword = $this->input->get('keyword');
         $config = $this->my_common->backend_pagination();
@@ -69,13 +60,26 @@ class Article extends CI_Controller
         $this->my_layout->view('frontend/article/index', isset($data)?$data:NULL);
     }
 
-    public function view($id = '')
+    public function viewcategory($catid)
     {
         $data['data']['category'] = $this->db->where(array('parentid' => '2'))->from('article_category')->get()->result_array();
-        if(isset($id) && !empty($id)){
-            $data['data']['item'] = $this->db->where(array('parentid' => $id))->from('article_item')->get()->result_array();
-            $data['data']['namecategory'] = $this->db->select('title')->where(array('id' => $id))->from('article_category')->get()->result_array();
-        }
-        $this->my_layout->view('frontend/article/view', isset($data)?$data:NULL);
+        $data['data']['namecategory'] = $this->db->select('title')->where(array('id' => $catid))->from('article_category')->get()->result_array();
+        $data['data']['_list'] = $this->db->where(array('parentid' => $catid))->from('article_item')->get()->result_array();
+
+        $this->my_layout->view('frontend/article/viewcategory', isset($data)?$data:NULL);
+    }
+
+    public function viewitem($itemid)
+    {
+        $data['data']['category'] = $this->db->where(array('parentid' => '2'))->from('article_category')->get()->result_array();
+        // $data['data']['namecategory'] = $this->db->select('title')->where(array('id' => $itemid))->from('article_category')->get()->result_array();
+        $data['data']['_list'] = $this->db->where(array('id' => $itemid))->from('article_item')->get()->result_array();
+
+        // cập nhật số lượt view
+        $row = $this->db->where(array('id' => $itemid))->from('article_item')->get()->row_array();
+        $row['viewed'] =  $row['viewed'] + 1;
+        $this->db->where(array('id' => $itemid))->update('article_item', $row);
+
+        $this->my_layout->view('frontend/article/viewitem', isset($data)?$data:NULL);
     }
 }

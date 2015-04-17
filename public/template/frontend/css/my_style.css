@@ -152,18 +152,24 @@ nav.navigation ul.sub:after {
 	margin-top: -6px;
 }
 
-nav.navigation section.search{
-	margin: 0px 0px 0px 303px;
+nav.navigation ul.search{
+	margin: 0px 0px 0px 30px;
+	border: none;
 }
 
-nav.navigation section.search input.text{
+nav.navigation ul.search input.text{
 	background-color: aliceblue;
 	height: 31px;
 }
 
-nav.navigation section.search input.submit{
-
+nav.navigation ul.search input.submit{
+	
 }
+nav.navigation ul.search input.submit:hover{
+	background: aqua;
+	border: 1px solid blue;
+}
+
 /************************/
 /* Phân trang */
 /************************/

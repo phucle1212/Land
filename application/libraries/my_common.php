@@ -41,7 +41,7 @@ class My_common {
 		$param['suffix']			= ''; // A custom suffix added to the path.
 
 		$param['total_rows']		=  0; // Total number of items (database results)
-		$param['per_page']			= 2; // Max number of items you want shown per page
+		$param['per_page']			= 1; // Max number of items you want shown per page
 		$param['num_links']			=  2; // Number of "digit" links to show before/after the currently viewed page
 		$param['cur_page']			=  0; // The current page being viewed
 		$param['use_page_numbers']	= TRUE; // Use page number for segment instead of offset
