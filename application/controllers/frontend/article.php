@@ -33,7 +33,7 @@ class Article extends CI_Controller
         $page = ($page > $_totalpage)?$_totalpage:$page;
 
         $config['uri_segment'] = 4; 
-        $config['suffix'] = $config['suffix'].(!empty($keyword)?'&keyword='.$keyword:'');
+        $config['suffix'] = $config['suffix'].(!empty($keyword)?'?keyword='.$keyword:'');
         $config['first_url'] = $config['base_url'].$config['suffix'];
         if ($config['total_rows'] > 0) {
             $this->pagination->initialize($config); 
