@@ -196,12 +196,12 @@ class Tag extends MY_Controller
     ******** Suggest & Insert tag 
     **********************************************/
 	public function suggest($char = ''){
-		$this->my_tags->suggest($char);
+		$this->my_tag->suggest($char);
 	}
 
 	public function insert(){
 		$item = $this->input->post('item');
 		$list = $this->input->post('list');
-		$this->my_tags->insert($item, $list);
+		$this->my_tag->insert($item, $list);
 	}
 }

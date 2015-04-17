@@ -7,16 +7,9 @@
     <h2>Tin tức</h2>
 </div>
 </div>
-<?php } ?>
-<?php } else { ?>
-        <div class="inside-banner">
-          <div class="container"> 
-            <span class="pull-right"><a href="#">Tin tức</a></span>
-            <h2>Tin tức</h2>
-        </div>
-        </div>
-<?php } ?>
 <!-- banner -->
+<?php } ?>
+<?php } ?>
 
 <!-- nav -->
 <nav class="navigation">
@@ -36,18 +29,8 @@
   <?php } else { ?>
     <td class="last" colspan="9"><p>Không có dữ liệu</p></td>
   <?php } ?>
-
-  <!-- search -->
-  <section class="search">
-    <form method="get" action="<?php echo base_url(); ?>frontend/article/index">
-      <input type="text" name="keyword" class="text" value="<?php echo isset($data['_keyword'])?common_valuepost($data['_keyword']):'' ?>">
-      <input type="submit" class="submit" value="Tìm kiếm">
-    </form>
-  </section>
-
 </nav>
 <!-- end nav -->
-
 
 
 <div class="container">
@@ -72,11 +55,8 @@
     <?php } else { ?>
       <td class="last" colspan="9"><p>Không có dữ liệu</p></td>
     <?php } ?>
-    <?php echo (isset($data['pagination']) && !empty($data['pagination']))?'<section class="pagination">'.$data['pagination'].'</section>':'' ?>
+
   </div>
-  
-
-
   <div class="col-lg-4 visible-lg">
 
   <!-- tabs -->

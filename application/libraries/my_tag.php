@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class My_tags {
+class My_tag {
 
 	private $CI;
 	private $auth;
@@ -14,10 +14,10 @@ class My_tags {
 		$st = '<div class="title">';
 		foreach (range('a', 'z') as $i) {
 			if ($char == $i) {
-				$st = $st . '<a href="http://localhost:81/MyWeb/01_Code/25_WebHouse/Land/backend/tag/suggest/'.$i.'" title="Chủ đề với ký tự bắt đầu bằng: '.strtoupper($i).'"><strong>['.$i.']</strong></a>, ';
+				$st = $st . '<a href="<?php echo base_url(); ?>backend/tag/suggest/'.$i.'" title="Chủ đề với ký tự bắt đầu bằng: '.strtoupper($i).'"><strong>['.$i.']</strong></a>, ';
 			}
 			else{
-				$st = $st . '<a href="http://localhost:81/MyWeb/01_Code/25_WebHouse/Land/backend/tag/suggest/'.$i.'" title="Chủ đề với ký tự bắt đầu bằng: '.strtoupper($i).'">['.$i.']</a>, ';
+				$st = $st . '<a href="<?php echo base_url(); ?>backend/tag/suggest/'.$i.'" title="Chủ đề với ký tự bắt đầu bằng: '.strtoupper($i).'">['.$i.']</a>, ';
 			}
 		}
 		$st = $st . '</div><div class="suggest">';

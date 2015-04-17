@@ -166,7 +166,7 @@ class My_nestedset{
 	}
 
 	public function check_parentid($table = '', $parentid = 0, $catid = 0){
-		$_lang = $this->session->userdata('_lang');
+		$_lang = $this->CI->session->userdata('_lang');
 		if ($parentid == $catid) {
 			$this->CI->form_validation->set_message('_parentid', 'Không thể chọn chính nó làm danh mục cha.');
 			return FALSE;

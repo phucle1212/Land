@@ -106,6 +106,10 @@
 				<label class="item">
 					<p class="label">Nguồn:</p>
 					<input type="text" name="data[source]" value="<?php echo common_valuepost(isset($data['_post']['source'])?$data['_post']['source']:''); ?>" class="txtText" />
+				</label>
+				<label class="item">
+					<p class="label">Url tùy biến:</p>
+					<input type="text" name="data[route]" value="<?php echo common_valuepost(isset($data['_post']['route'])?$data['_post']['route']:''); ?>" class="txtText" />
 				</label>	
 			</section><!-- .container -->
 		</section><!-- .block -->

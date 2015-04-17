@@ -64,12 +64,22 @@ class Article extends MY_Controller
             $this->form_validation->set_error_delimiters('<li>', '</li>');
             $this->form_validation->set_rules('data[title]', 'Tiêu đề', 'trim|required');
             $this->form_validation->set_rules('data[parentid]', 'Node cha', 'trim|required|is_natural_no_zero');
+            if (isset($_post['route']) && !empty($_post['route'])) {
+                $this->form_validation->set_rules('data[route]', 'Url tùy biến', 'trim|required|callback__route');
+                $_post['route'] = $this->my_string->alias($_post['route']);
+            } 
             if ($this->form_validation->run() == TRUE){
-                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'description', 'publish', 'meta_title', 'meta_keywords', 'meta_description'));
+                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'route', 'description', 'publish', 'meta_title', 'meta_keywords', 'meta_description'));
                 $_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_created'] = $this->auth['id'];
                 $_post['lang'] = $this->session->userdata('_lang');
+                $_post['alias'] = $this->my_string->alias($_post['title']);
                 $this->db->insert('article_category', $_post); 
+                $this->my_route->insert(array(
+                    'url' => $_post['route'],
+                    'param' => 'article/category/'.$this->db->insert_id(),
+                    'created' => gmdate('Y-m-d H:i:s', time() + 7*3600),
+                ));
                 $this->my_string->js_redirect('Thêm danh mục thành công!', base_url().'backend/article/category');
             }
         }
@@ -107,11 +117,19 @@ class Article extends MY_Controller
             $this->form_validation->set_error_delimiters('<li>', '</li>');
             $this->form_validation->set_rules('data[title]', 'Tiêu đề', 'trim|required');
             $this->form_validation->set_rules('data[parentid]', 'Node cha', 'trim|required|is_natural_no_zero|callback__parentid[' .$id. ']');
+            if (isset($_post['route']) && !empty($_post['route'])) {
+               $this->form_validation->set_rules('data[route]', 'Url tùy biến', 'trim|required|callback__route['.$category['route'].']');
+                $_post['route'] = $this->my_string->alias($_post['route']);
+            } 
             if ($this->form_validation->run() == TRUE){
-                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'description', 'publish', 'meta_title', 'meta_keywords', 'meta_description'));
+                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'route', 'description', 'publish', 'meta_title', 'meta_keywords', 'meta_description'));
                 $_post['updated'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_updated'] = $this->auth['id'];
+                $_post['alias'] = $this->my_string->alias($_post['title']);
                 $this->db->where(array('id' => $id))->update('article_category', $_post);
+                if (isset($_post['route']) && !empty($_post['route'])) {
+                    $this->my_route->update('article/category/'.$id,$_post['route']);
+                }
                 $this->my_string->js_redirect('Sửa danh mục thành công!', base_url().'backend/article/category');
             }
         }
@@ -313,19 +331,29 @@ class Article extends MY_Controller
        
         if($this->input->post('add')){
             $_post = $this->input->post('data');
-            $data['data']['_post'] = $_post; 
+
             $this->form_validation->set_error_delimiters('<li>', '</li>');
             $this->form_validation->set_rules('data[title]', 'Tiêu đề', 'trim|required');
             $this->form_validation->set_rules('data[parentid]', 'Node cha', 'trim|required|is_natural_no_zero');
+            if (isset($_post['route']) && !empty($_post['route'])) {
+                $this->form_validation->set_rules('data[route]', 'Url tùy biến', 'trim|required|callback__route');
+                $_post['route'] = $this->my_string->alias($_post['route']);
+            }       
             if ($this->form_validation->run() == TRUE){
-                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'tags', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'meta_title', 'meta_keywords', 'meta_description'));
+                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'tags', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'route', 'meta_title', 'meta_keywords', 'meta_description'));
                 $_post['timer'] = gmdate('Y-m-d H:i:s', strtotime(str_replace('/', '-',$_post['timer'])) + 7*3600 );
                 $_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_created'] = $this->auth['id'];
                 $_post['tags'] = !empty($_post['tags'])?(','.str_replace(', ', ',', $_post['tags']).','):'';
+                $_post['alias'] = $this->my_string->alias($_post['title']);
                 $_post['lang'] = $this->session->userdata('_lang');
                 $this->db->insert('article_item', $_post); 
-                $this->my_tags->insert_list($_post['tags']);
+                $this->my_tag->insert_list($_post['tags']);
+                $this->my_route->insert(array(
+                    'url' => $_post['route'],
+                    'param' => 'article/item/'.$this->db->insert_id(),
+                    'created' => gmdate('Y-m-d H:i:s', time() + 7*3600),
+                ));
                 $this->my_string->js_redirect('Thêm bài viết thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
             }
         }
@@ -361,13 +389,21 @@ class Article extends MY_Controller
             $this->form_validation->set_error_delimiters('<li>', '</li>');
             $this->form_validation->set_rules('data[title]', 'Tiêu đề', 'trim|required');
             $this->form_validation->set_rules('data[parentid]', 'Node cha', 'trim|required|is_natural_no_zero');
+            if (isset($_post['route']) && !empty($_post['route'])) {
+                $this->form_validation->set_rules('data[route]', 'Url tùy biến', 'trim|required|callback__route['.$item['route'].']');
+                $_post['route'] = $this->my_string->alias($_post['route']);
+            }  
             if ($this->form_validation->run() == TRUE){
-                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'tags', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'meta_title', 'meta_keywords', 'meta_description'));
+                $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'tags', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'route', 'meta_title', 'meta_keywords', 'meta_description'));
                 $_post['updated'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_updated'] = $this->auth['id'];
                 $_post['tags'] = !empty($_post['tags'])?(','.str_replace(', ', ',', $_post['tags']).','):'';
+                $_post['alias'] = $this->my_string->alias($_post['title']);
                 $this->db->where(array('id' => $id))->update('article_item', $_post);
-                $this->my_tags->insert_list($_post['tags']);
+                $this->my_tag->insert_list($_post['tags']);
+                if (isset($_post['route']) && !empty($_post['route'])) {
+                    $this->my_route->update('article/item/'.$id,$_post['route']);
+                }
                 $this->my_string->js_redirect('Sửa bài viết thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
             }
         }
@@ -379,6 +415,10 @@ class Article extends MY_Controller
         $data['seo']['title'] = "Sửa bài viết";
         $data['data']['auth'] = $this->auth;  
         $this->my_layout->view("backend/article/edititem", isset($data)?$data:NULL);
+    }
+
+    public function _route($route, $old_route){
+        return $this->my_route->check_route($route, isset($old_route)?$old_route:NULL);
     }
 
     /*
