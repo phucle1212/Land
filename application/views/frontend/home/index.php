@@ -39,7 +39,7 @@
                                 <option value="0">Quận/Huyện</option>
                                 <script type="text/javascript">
                                     function loaddist(){
-                                        if($("#select_ward").find(":selected").val()!="0"){
+                                        if($("#select_prov").val()=="0"){
                                             $("#select_ward").html("<option value='0'>Phường/Xã</option>");
                                         }
                                         if($("#select_prov").find(":selected").val()=="0"){
