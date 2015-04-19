@@ -16,25 +16,77 @@
                     <div class="row">
                         <div class="col-lg-3 col-sm-3 ">
                             <select class="form-control">
-                                <option>Buy</option>
-                                <option>Rent</option>
-                                <option>Sale</option>
+                                <option>Cần mua</option>
+                                <option>Cho thuê</option>
+                                <option>Cần bán</option>
                             </select>
                         </div>
                         <div class="col-lg-3 col-sm-4">
-                            <select class="form-control">
-                                <option>Tỉnh/TP</option>
-                                <option>Apartment</option>
-                                <option>Building</option>
-                                <option>Office Space</option>
+                            <select id="select_prov" class="form-control" onchange="loaddist()">
+                                <option value="0">Tỉnh/TP</option>
+                                <?php
+                                    foreach($data['province'] as $row => $val)
+                                    {
+                                        echo '<option value='.$val['provinceid'].'>';
+                                        echo $val['name'];
+                                        echo '</option>';
+                                    }
+                                ?>
                             </select>
                         </div>
                         <div class="col-lg-3 col-sm-4">
-                            <select class="form-control">
-                                <option>Quận/Huyện</option>
-                                <option>Apartment</option>
-                                <option>Building</option>
-                                <option>Office Space</option>
+                            <select id="select_dist" class="form-control" onchange="loadward()">
+                                <option value="0">Quận/Huyện</option>
+                                <script type="text/javascript">
+                                    function loaddist(){
+                                        if($("#select_ward").find(":selected").val()!="0"){
+                                            $("#select_ward").html("<option value='0'>Phường/Xã</option>");
+                                        }
+                                        if($("#select_prov").find(":selected").val()=="0"){
+                                            $("#select_dist").html("<option value='0'>Quận/Huyện</option>"); 
+                                        }else{
+                                        var str = "<?php echo base_url(); ?>frontend/home/loaddist";
+                                        $.ajax({
+                                         type: "POST",
+                                         url: str, 
+                                         data: {provinceid:$("#select_prov").find(":selected").val()},
+                                         dataType: "text",  
+                                         cache:false,
+                                         success: 
+                                              function(result){
+                                                $("#select_dist").html(result);
+                                                loadward();
+                                              }
+                                        });
+                                     return false;}
+                                    }
+                                </script>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-sm-4">
+                            <select id="select_ward" class="form-control">
+                                <option value="0">Phường/Xã</option>
+                                <script type="text/javascript">
+                                    function loadward(){
+                                        if($("#select_dist").find(":selected").val()=="0"){
+                                            $("#select_ward").html("<option value='0'>Phường/Xã</option>"); 
+                                        }else{
+                                        var str = "<?php echo base_url(); ?>frontend/home/loadward";
+                                        $.ajax({
+                                         type: "POST",
+                                         url: str, 
+                                         data: {distid:$("#select_dist").find(":selected").val()},
+                                         dataType: "text",  
+                                         cache:false,
+                                         success: 
+                                              function(result){
+                                                $("#select_ward").html(result);
+                                              }
+                                        });
+                                     return false;
+                                 }
+                                    }
+                                </script>
                             </select>
                         </div>
                         <div class="col-lg-3 col-sm-4">

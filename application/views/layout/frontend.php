@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>public/template/frontend/css/my_style.css"/>
 
     <!-- JS here -->
-    <script type="text/javascript" src="<?php echo base_url(); ?>public/template/frontend/js/bootstrap.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/template/frontend/js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>public/template/frontend/js/script.js"></script>
+    // <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    // <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>public/template/frontend/js/bootstrap.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>public/template/frontend/js/bootstrap.min.js"></script>
 
     <!-- Owl -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>public/template/frontend/css/owl.carousel.css"/>
@@ -46,6 +48,7 @@
                     <li><a href="<?php echo base_url(); ?>frontend/about/index">Giới thiệu</a></li>
                     <li><a href="<?php echo base_url(); ?>frontend/agent/index">Quản trị viên</a></li>
                     <li><a href="<?php echo base_url(); ?>frontend/contact/index">Liên hệ</a></li>
+                    <li><a href="<?php echo base_url(); ?>frontend/home/test">Test</a></li>
                 </ul>
             </div>
             <!-- #Nav Ends -->
